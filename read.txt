@@ -1,0 +1,36 @@
+what step take to deployment : 
+1. npm init -y : create package.json file inside CHAT-APP(root).
+2. create .gitignore file , copy .gitignore from frontend(react) and paste in it and then delete from frontend, . add .env inside newly .gitignore-file.
+
+3. change script of package.json file inside backend to: 
+        "dev": "nodemon src/index.js",
+        "start": "node src/index.js"
+
+4. add script inside package.json of CHAT-APP (root) : 
+        "build":"npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+        "start":"npm run start --prefix backend"
+
+5. delete node_modules from both backend and frontend
+6. For checking that script work fine run this :->  npm run build     .  (This should create node_modules inside both frontend and backend , and create a dist-folder inside frontend that store optimize code of frontend)
+
+7. Add code inside index.js inside backend : 
+    import path from "path"
+    const __dirname=path.resolve()
+    if(process.env.NODE_ENV==="production"){
+        app.use(express.static(path.join(__dirname,"../frontend/dist")));
+        
+        app.get("*",(req,res)=>{
+            res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
+        })
+    }
+7(1) : optional change : change title inside index.html (inside frontend)
+
+8. Change the code inside frontend>src>lib>axios.js file : change baseURL value , 
+            baseURL:import.meta.env.MODE==="delvelopment"? "http://localhost:5001/api" : "/api",
+9. Change the code inside frontend>src>store>useAuthStore.js file : change BASE_URL value , 
+            const BASE_URL=import.meta.env.MODE==="delvelopment"?"http://localhost:5001":"/";
+
+Now create a GItHUB Repo and push the code into that repo....
+
+
+
