@@ -31,6 +31,3 @@ what step take to deployment :
             const BASE_URL=import.meta.env.MODE==="delvelopment"?"http://localhost:5001":"/";
 
 Now create a GItHUB Repo and push the code into that repo....
-
-
-
